@@ -36,6 +36,6 @@ public class User {
     @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL,  orphanRemoval = true)
     private Set<Follow> followingRelations = new HashSet<>();
 
-    @OneToMany(mappedBy = "followed")
+    @OneToMany(mappedBy = "followed", cascade = CascadeType.ALL,  orphanRemoval = true)
     private Set<Follow> followerRelations = new HashSet<>();
 }
