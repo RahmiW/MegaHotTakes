@@ -33,7 +33,7 @@ public class User {
     )
     private Set<HotTake> likedHotTakes = new HashSet<>();
     // the liked hot takes will be stored here
-    @OneToMany(mappedBy = "follower")
+    @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL,  orphanRemoval = true)
     private Set<Follow> followingRelations = new HashSet<>();
 
     @OneToMany(mappedBy = "followed")
