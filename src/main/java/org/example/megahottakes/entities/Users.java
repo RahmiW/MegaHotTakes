@@ -34,14 +34,9 @@ public class User {
     )
     private Set<HotTake> likedHotTakes = new HashSet<>();
     // the liked hot takes will be stored here
-    @ManyToMany
-    @JoinTable(
-            name = "user_follows",
-            joinColumns = @JoinColumn(name = "follower_id"),
-            inverseJoinColumns = @JoinColumn(name = "followed_id")
-    )
-    private Set<User> following = new HashSet<>();
+    @OneToMany(mappedBy = "follower")
+    private Set<Follow> followingRelations = new HashSet<>();
 
-    @ManyToMany(mappedBy = "following")
-    private Set<User> followers = new HashSet<>();
+    @OneToMany(mappedBy = "followed")
+    private Set<Follow> followerRelations = new HashSet<>();
 }
