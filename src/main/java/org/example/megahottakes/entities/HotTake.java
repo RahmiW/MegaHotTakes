@@ -34,4 +34,8 @@ public class HotTake {
 
     @ManyToMany(mappedBy = "likedHotTakes")
     private Set<User> likedByUsers = new HashSet<>();
+
+    public int getHeatScore(){
+        return likedByUsers.size();
+    }
 }
