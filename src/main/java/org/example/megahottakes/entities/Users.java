@@ -23,9 +23,8 @@ public class User {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL,  orphanRemoval = true)
     private Set<HotTake> hotTakes = new HashSet<>();
     // will include all the hot takes per user and adds uniqueness to each hot take
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL,  orphanRemoval = true)
     private Set<Comment> comments = new HashSet<>();
-
     @ManyToMany
     @JoinTable(
             name = "user_liked_hottakes",
