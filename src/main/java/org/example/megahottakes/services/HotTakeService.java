@@ -1,4 +1,4 @@
-package org.example.megahottakes;
+package org.example.megahottakes.services;
 
 import org.example.megahottakes.entities.HotTake;
 import org.example.megahottakes.entities.User;
