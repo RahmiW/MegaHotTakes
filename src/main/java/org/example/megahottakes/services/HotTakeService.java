@@ -27,7 +27,6 @@ public class HotTakeService {
         this.commentRepository = commentRepository;
     }
     // Create
-
     public HotTake createHotTake(Long id, String contentOfHotTake) {
         User authorOfHotTake =  userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("The User was not Found")); // grab id of User
@@ -38,17 +37,6 @@ public class HotTakeService {
         hotTake.setContent(contentOfHotTake);
         hotTake.setAuthor(authorOfHotTake);
         return hotTakeRepository.save(hotTake);
-    }
-    public Comment addComment(Long hotTakeId, Long authorId, String contentOfComment) {
-        Comment newComment = new Comment();
-        HotTake hotTakeObject = hotTakeRepository.findById(hotTakeId)
-                .orElseThrow(() -> new IllegalArgumentException("The HotTake Post was not Found"));
-        User authorObject = userRepository.findById(authorId)
-                .orElseThrow(() -> new IllegalArgumentException("The User was not Found"));
-        newComment.setAuthor(authorObject);
-        newComment.setHotTake(hotTakeObject);
-        newComment.setContent(contentOfComment);
-        return commentRepository.save(newComment);
     }
     // Read
     public HotTake getHotTake(Long hotTakeId){
@@ -62,11 +50,6 @@ public class HotTakeService {
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("The User was not Found"));
         return user.getHotTakes();
     }
-    //
-    public Set<Comment> getCommentsByHotTake(Long hotTakeId){
-        HotTake hotTake = hotTakeRepository.findById(hotTakeId).orElseThrow(() -> new IllegalArgumentException("The HotTake was not found"));
-        return hotTake.getComments();
-    }
     public List<HotTake> searchHotTakes(String keyword){
         return hotTakeRepository.findByContentContainingIgnoreCase(keyword);
     }
@@ -79,8 +62,5 @@ public class HotTakeService {
     // Delete
     public void deleteHotTake(Long hotTakeId){
         hotTakeRepository.deleteById(hotTakeId);
-    }
-    public void deleteComment(Long commentId){
-        commentRepository.deleteById(commentId);
     }
 }
