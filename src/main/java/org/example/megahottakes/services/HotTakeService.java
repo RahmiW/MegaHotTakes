@@ -70,4 +70,17 @@ public class HotTakeService {
     public List<HotTake> searchHotTakes(String keyword){
         return hotTakeRepository.findByContentContainingIgnoreCase(keyword);
     }
+    // Update
+    public HotTake updateHotTake(Long hotTakeId, String newContent){
+        HotTake hotTake = hotTakeRepository.findById(hotTakeId).orElseThrow(() -> new IllegalArgumentException("The HotTake was not found"));
+        hotTake.setContent(newContent);
+        return hotTakeRepository.save(hotTake);
+    }
+    // Delete
+    public void deleteHotTake(Long hotTakeId){
+        hotTakeRepository.deleteById(hotTakeId);
+    }
+    public void deleteComment(Long commentId){
+        commentRepository.deleteById(commentId);
+    }
 }
