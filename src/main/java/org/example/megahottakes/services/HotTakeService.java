@@ -8,6 +8,9 @@ import org.example.megahottakes.repositories.HotTakeRepository;
 import org.example.megahottakes.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Set;
+
 
 // Layout:
 // CRUD (Create Post and save to DB)
@@ -23,6 +26,7 @@ public class HotTakeService {
         this.userRepository = userRepository;
         this.commentRepository = commentRepository;
     }
+    // Create
 
     public HotTake createHotTake(Long id, String contentOfHotTake) {
         User authorOfHotTake =  userRepository.findById(id)
@@ -45,5 +49,25 @@ public class HotTakeService {
         newComment.setHotTake(hotTakeObject);
         newComment.setContent(contentOfComment);
         return commentRepository.save(newComment);
+    }
+    // Read
+    public HotTake getHotTake(Long hotTakeId){
+        return hotTakeRepository.findById(hotTakeId)
+                .orElseThrow(() -> new IllegalArgumentException("The HotTake was not found"));
+    }
+    public List<HotTake> getHotTakeFeed(){
+        return hotTakeRepository.findAllByOrderByLikedByUsersDesc();
+    }
+    public Set<HotTake> getHotTakesByUser(Long userId){
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("The User was not Found"));
+        return user.getHotTakes();
+    }
+    //
+    public Set<Comment> getCommentsByHotTake(Long hotTakeId){
+        HotTake hotTake = hotTakeRepository.findById(hotTakeId).orElseThrow(() -> new IllegalArgumentException("The HotTake was not found"));
+        return hotTake.getComments();
+    }
+    public List<HotTake> searchHotTakes(String keyword){
+        return hotTakeRepository.findByContentContainingIgnoreCase(keyword);
     }
 }
