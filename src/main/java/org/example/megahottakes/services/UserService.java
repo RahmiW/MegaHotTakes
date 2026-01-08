@@ -40,6 +40,10 @@ public class UserService {
     public User getUserById(Long userId) {
         return userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("The User was not found"));
     }
+    public String getBio(Long userId) {
+        User user = getUserById(userId);
+        return user.getBio();
+    }
     public User getUserByName(String userName) {
         return userRepository.findByUserName(userName);
     }
