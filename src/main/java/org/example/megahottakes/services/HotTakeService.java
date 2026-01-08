@@ -20,12 +20,10 @@ import java.util.Set;
 public class HotTakeService {
     private HotTakeRepository hotTakeRepository;
     private UserRepository userRepository;
-    private CommentRepository commentRepository;
 
-    public HotTakeService(HotTakeRepository hotTakeRepository, UserRepository userRepository, CommentRepository commentRepository) {
+    public HotTakeService(HotTakeRepository hotTakeRepository, UserRepository userRepository) {
         this.hotTakeRepository = hotTakeRepository;
         this.userRepository = userRepository;
-        this.commentRepository = commentRepository;
     }
 
     // Create

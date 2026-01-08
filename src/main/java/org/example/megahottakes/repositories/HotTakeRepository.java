@@ -10,4 +10,5 @@ import java.util.List;
 public interface HotTakeRepository extends JpaRepository<HotTake, Long> {
     List<HotTake> findAllByOrderByLikedByUsersDesc();
     List<HotTake> findByContentContainingIgnoreCase(String keyword);
+    List<HotTake> findByAuthorId(Long userId);
 }
