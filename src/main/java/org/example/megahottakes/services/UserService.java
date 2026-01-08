@@ -53,4 +53,19 @@ public class UserService {
     public List<Comment> getCommentsByUserId(Long userId) {
         return commentRepository.findByAuthorId(userId);
     }
+    // Update
+    public User changeName(Long userId, String newName) {
+        User user = getUserById(userId);
+        user.setUserName(newName);
+        return userRepository.save(user);
+    }
+    public User changeBio(Long userId, String newBio) {
+        User user = getUserById(userId);
+        user.setBio(newBio);
+        return userRepository.save(user);
+    }
+    // Delete
+    public void deleteUser(Long userId) {
+        userRepository.deleteById(userId);
+    }
 }
