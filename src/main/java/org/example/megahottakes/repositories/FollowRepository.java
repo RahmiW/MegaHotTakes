@@ -11,4 +11,6 @@ public interface FollowRepository extends JpaRepository<Follow, Long> {
     // boolean for checking if user already follows the other user
     boolean existsByFollowerAndFollowed(User follower, User followed);
     Optional<Follow> findByFollowerAndFollowed(User follower, User followed);
+    int countByFollower(User follower);
+    int countByFollowed(User followed);
 }
