@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
+@Table(name = "app_user")
 @Getter
 @Setter
 @Entity

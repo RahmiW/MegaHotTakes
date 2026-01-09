@@ -32,7 +32,7 @@ public class HotTake {
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
 
-    @OneToMany(mappedBy = "hottake", cascade = CascadeType.ALL,  orphanRemoval = true)
+    @OneToMany(mappedBy = "hotTake", cascade = CascadeType.ALL,  orphanRemoval = true)
     private Set<Comment> comments = new HashSet<>();
 
     @ManyToMany(mappedBy = "likedHotTakes")
