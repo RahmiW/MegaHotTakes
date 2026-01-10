@@ -1,5 +1,6 @@
 package org.example.megahottakes.controller;
 
+import org.example.megahottakes.entities.Comment;
 import org.example.megahottakes.entities.HotTake;
 import org.example.megahottakes.entities.User;
 import org.example.megahottakes.repositories.FollowRepository;
@@ -31,12 +32,19 @@ public class UserController {
     public User getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
-    @GetMapping("/{name}")
-    public User getUser(@PathVariable String name){
-        return userService.getUserByName(name);
+    @GetMapping("/{id}/bio")
+    public String getUserBioById(@PathVariable Long id) {
+        return userService.getBio(id);
+    }
+    @GetMapping("/by-name/{name}")
+    public User getByUserName(@PathVariable String name){return userService.getUserByName(name);
     }
     @GetMapping("/{id}/hottakes")
     public List<HotTake> getHotTakesByUser(@PathVariable Long id){
         return userService.getHotTakesByUserId(id);
+    }
+    @GetMapping("/{id}/comments")
+    public List<Comment>  getCommentsByUser(@PathVariable Long id){
+        return userService.getCommentsByUserId(id);
     }
 }
