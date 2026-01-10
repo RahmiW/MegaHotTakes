@@ -8,6 +8,7 @@ import org.example.megahottakes.repositories.HotTakeRepository;
 import org.example.megahottakes.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -46,7 +47,8 @@ public class HotTakeService {
     }
 
     public List<HotTake> getHotTakeFeed() {
-        return hotTakeRepository.findAllByOrderByLikedByUsersDesc();
+        LocalDateTime since = LocalDateTime.now().minusHours(48);
+        return hotTakeRepository.findByCreationDateAfterOrderByLikedByUsersDesc(since);
     }
 
     public Set<HotTake> getHotTakesByUser(Long userId) {
