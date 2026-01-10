@@ -21,9 +21,14 @@ public class UserController {
     public User createUser(@RequestBody User user) {
         return userService.createUser(user.getUserName(), user.getBio());
     }
+    // Read
     @GetMapping
     public List<User> findAll() {
         return userService.getAllUsers();
+    }
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
     }
     @GetMapping("/{name}")
     public User getUser(@PathVariable String name){
