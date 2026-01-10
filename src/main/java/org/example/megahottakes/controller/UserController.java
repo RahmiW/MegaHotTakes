@@ -1,5 +1,6 @@
 package org.example.megahottakes.controller;
 
+import org.example.megahottakes.entities.HotTake;
 import org.example.megahottakes.entities.User;
 import org.example.megahottakes.repositories.FollowRepository;
 import org.example.megahottakes.repositories.UserRepository;
@@ -33,5 +34,9 @@ public class UserController {
     @GetMapping("/{name}")
     public User getUser(@PathVariable String name){
         return userService.getUserByName(name);
+    }
+    @GetMapping("/{id}/hottakes")
+    public List<HotTake> getHotTakesByUser(@PathVariable Long id){
+        return userService.getHotTakesByUserId(id);
     }
 }
