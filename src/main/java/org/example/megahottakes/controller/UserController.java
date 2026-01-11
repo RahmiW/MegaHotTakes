@@ -47,4 +47,9 @@ public class UserController {
     public List<Comment>  getCommentsByUser(@PathVariable Long id){
         return userService.getCommentsByUserId(id);
     }
+    // Update Section will include: changeName, changeBio
+    @PutMapping("update/{id}")
+    public User updateUserName(@PathVariable Long id, @RequestBody User user){
+        return userService.changeName(id, user.getUserName());
+    }
 }
