@@ -48,16 +48,16 @@ public class UserController {
         return userService.getCommentsByUserId(id);
     }
     // Update Section will include: changeName, changeBio
-    @PutMapping("/update/{id}/username")
+    @PutMapping("/{id}/username")
     public User updateUserName(@PathVariable Long id, @RequestBody User user){
         return userService.changeName(id, user.getUserName());
     }
-    @PutMapping("/update/{id}/bio")
+    @PutMapping("/{id}/bio")
     public User updateUserBio(@PathVariable Long id, @RequestBody User user){
         return userService.changeBio(id, user.getBio());
     }
     // Delete Section
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id){
         userService.deleteUser(id);
     }
