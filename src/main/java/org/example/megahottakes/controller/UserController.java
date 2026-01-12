@@ -56,4 +56,9 @@ public class UserController {
     public User updateUserBio(@PathVariable Long id, @RequestBody User user){
         return userService.changeBio(id, user.getBio());
     }
+    // Delete Section
+    @DeleteMapping("/delete/{id}")
+    public void deleteUser(@PathVariable Long id){
+        userService.deleteUser(id);
+    }
 }
