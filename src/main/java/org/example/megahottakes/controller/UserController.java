@@ -48,8 +48,12 @@ public class UserController {
         return userService.getCommentsByUserId(id);
     }
     // Update Section will include: changeName, changeBio
-    @PutMapping("update/{id}")
+    @PutMapping("/update/{id}/username")
     public User updateUserName(@PathVariable Long id, @RequestBody User user){
         return userService.changeName(id, user.getUserName());
+    }
+    @PutMapping("/update/{id}/bio")
+    public User updateUserBio(@PathVariable Long id, @RequestBody User user){
+        return userService.changeBio(id, user.getBio());
     }
 }
