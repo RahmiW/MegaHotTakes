@@ -29,4 +29,10 @@ public class FollowController {
         User followed = userRepository.findById(followedId).get();
         followService.unfollow(follower, followed);
     }
+    @GetMapping("/isFollowing/{followerId}/{followedId}")
+    public boolean isFollowing(@PathVariable Long followerId, @PathVariable Long followedId){
+        User follower = userRepository.findById(followerId).get();
+        User followed = userRepository.findById(followedId).get();
+        return followService.isFollowing(follower, followed);
+    }
 }
