@@ -20,7 +20,7 @@ public class FollowService {
         // boolean for checking if users already follow each other
         boolean alreadyFollowing = followRepository.existsByFollowerAndFollowed(follower, followed);
         if (alreadyFollowing) {
-            throw new IllegalArgumentException("Cannot follow yourself");
+            throw new IllegalArgumentException("You are already following the user");
         }
         Follow newFollow = new Follow();
         newFollow.setFollower(follower);
