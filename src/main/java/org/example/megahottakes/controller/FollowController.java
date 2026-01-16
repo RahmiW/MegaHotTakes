@@ -36,7 +36,7 @@ public class FollowController {
         return followService.isFollowing(follower, followed);
     }
     @GetMapping("/followcount/{id}")
-    public int getFollowCount(Long id){
+    public int getFollowCount(@PathVariable Long id){
         User user = userRepository.findById(id).orElseThrow();
         return followService.getFollowCount(user);
     }
