@@ -23,4 +23,10 @@ public class FollowController {
         User followed = userRepository.findById(followedId).get();
         followService.follow(follower, followed);
     }
+    @DeleteMapping("/{followerId}/{followedId}")
+    public void unfollow(@PathVariable Long followerId, @PathVariable Long followedId){
+        User follower = userRepository.findById(followerId).get();
+        User followed = userRepository.findById(followedId).get();
+        followService.unfollow(follower, followed);
+    }
 }
