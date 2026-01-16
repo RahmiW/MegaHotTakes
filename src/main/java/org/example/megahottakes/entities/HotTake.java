@@ -1,5 +1,6 @@
 package org.example.megahottakes.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,7 @@ public class HotTake {
 
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
+    @JsonIgnore
     private User author;
 
     @OneToMany(mappedBy = "hotTake", cascade = CascadeType.ALL,  orphanRemoval = true)
