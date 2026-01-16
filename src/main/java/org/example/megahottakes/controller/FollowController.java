@@ -40,4 +40,9 @@ public class FollowController {
         User user = userRepository.findById(id).orElseThrow();
         return followService.getFollowCount(user);
     }
+    @GetMapping("/followingcount/{id}")
+    public int getFollowingCount(@PathVariable Long id){
+        User user = userRepository.findById(id).orElseThrow();
+        return followService.getFollowingCount(user);
+    }
 }
