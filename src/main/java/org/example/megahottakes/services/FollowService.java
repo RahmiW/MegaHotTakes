@@ -39,9 +39,9 @@ public class FollowService {
     }
     // Methods to get list of followers and following
     public int getFollowCount(User user){
-        return  followRepository.countByFollower(user);
+        return  followRepository.countByFollowed(user);
     }
     public int getFollowingCount(User user){
-        return  followRepository.countByFollowed(user);
+        return  followRepository.countByFollower(user);
     }
 }
