@@ -35,4 +35,9 @@ public class FollowController {
         User followed = userRepository.findById(followedId).get();
         return followService.isFollowing(follower, followed);
     }
+    @GetMapping("/followcount/{id}")
+    public int getFollowCount(Long id){
+        User user = userRepository.findById(id).orElseThrow();
+        return followService.getFollowCount(user);
+    }
 }
