@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/follows")
 public class FollowController {
     private final FollowService followService;
-    private final UserRepository userRepository;
 
     public FollowController(FollowService followService, UserRepository userRepository) {
         this.followService = followService;
