@@ -1,25 +1,34 @@
 package org.example.megahottakes.services;
 
+import jakarta.transaction.Transactional;
 import org.example.megahottakes.entities.Follow;
 import org.example.megahottakes.entities.User;
 import org.example.megahottakes.repositories.FollowRepository;
+import org.example.megahottakes.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
 public class FollowService {
+    private final UserRepository userRepository;
     private FollowRepository followRepository;
-    public FollowService(FollowRepository followRepository) {
+    public FollowService(FollowRepository followRepository, UserRepository userRepository) {
         this.followRepository = followRepository;
+        this.userRepository = userRepository;
     }
-    public void follow(User follower, User followed){
-        if (follower.getId().equals(followed.getId())) {
+    // follow logic
+    @Transactional
+    public void follow(Long followerId, Long followedId){
+        if (followerId.equals(followedId)) {
             throw new IllegalArgumentException("Cannot follow yourself");
         }
         // boolean for checking if users already follow each other
-        boolean alreadyFollowing = followRepository.existsByFollowerAndFollowed(follower, followed);
-        if (alreadyFollowing) {
+        User follower = userRepository.findById(followerId)
+            .orElseThrow(() -> new IllegalArgumentException("Follower was not found"));
+        User followed = userRepository.findById(followedId)
+                .orElseThrow(() -> new IllegalArgumentException("Followed user was not found"));
+        if (followRepository.existsByFollowerAndFollowed(follower, followed)) {
             throw new IllegalArgumentException("You are already following the user");
         }
         Follow newFollow = new Follow();

@@ -14,35 +14,26 @@ public class FollowController {
 
     public FollowController(FollowService followService, UserRepository userRepository) {
         this.followService = followService;
-        this.userRepository = userRepository;
     }
     // Create
     @PostMapping("/{followerId}/{followedId}")
     public void follow(@PathVariable Long followerId, @PathVariable Long followedId){
-        User follower = userRepository.findById(followerId).orElseThrow(() -> new IllegalArgumentException("Follower ID not found"));
-        User followed = userRepository.findById(followedId).orElseThrow(() -> new IllegalArgumentException("Followed ID not found"));
-        followService.follow(follower, followed);
+        followService.follow(followerId, followedId);
     }
     @DeleteMapping("/{followerId}/{followedId}")
     public void unfollow(@PathVariable Long followerId, @PathVariable Long followedId){
-        User follower = userRepository.findById(followerId).orElseThrow(() -> new IllegalArgumentException("Follower ID not found"));
-        User followed = userRepository.findById(followedId).orElseThrow(() -> new IllegalArgumentException("Followed ID not found"));
         followService.unfollow(follower, followed);
     }
     @GetMapping("/isFollowing/{followerId}/{followedId}")
     public boolean isFollowing(@PathVariable Long followerId, @PathVariable Long followedId){
-        User follower = userRepository.findById(followerId).orElseThrow(() -> new IllegalArgumentException("Follower ID not found"));
-        User followed = userRepository.findById(followedId).orElseThrow(() -> new IllegalArgumentException("Followed ID not found"));
         return followService.isFollowing(follower, followed);
     }
     @GetMapping("/followcount/{id}")
     public int getFollowCount(@PathVariable Long id){
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found"));
         return followService.getFollowCount(user);
     }
     @GetMapping("/followingcount/{id}")
     public int getFollowingCount(@PathVariable Long id){
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found"));
         return followService.getFollowingCount(user);
     }
 }
