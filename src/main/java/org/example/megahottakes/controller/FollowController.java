@@ -6,6 +6,7 @@ import org.example.megahottakes.repositories.UserRepository;
 import org.example.megahottakes.services.FollowService;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/follows")
 public class FollowController {

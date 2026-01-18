@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Set;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/hotTake")
 public class HotTakeController {
@@ -19,8 +20,8 @@ public class HotTakeController {
 
     // Create
     @PostMapping("/user/{id}")
-    public void createHotTakePost(@PathVariable Long id, @RequestBody HotTake hotTake) {
-        hotTakeService.createHotTake(id, hotTake.getContent());
+    public HotTake createHotTakePost(@PathVariable Long id, @RequestBody HotTake hotTake) {
+        return hotTakeService.createHotTake(id, hotTake.getContent());
     }
     // Read
     @GetMapping("/{id}")
