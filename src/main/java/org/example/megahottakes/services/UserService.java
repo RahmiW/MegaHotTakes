@@ -1,5 +1,6 @@
 package org.example.megahottakes.services;
 
+import jakarta.transaction.Transactional;
 import org.example.megahottakes.entities.Comment;
 import org.example.megahottakes.entities.HotTake;
 import org.example.megahottakes.entities.User;
@@ -27,6 +28,7 @@ public class UserService {
         this.commentRepository = commentRepository;
     }
     // Create Section
+    @Transactional
     public User createUser(String name, String bioContent){
         User user = new User();
         user.setUserName(name);
@@ -54,17 +56,20 @@ public class UserService {
         return commentRepository.findByAuthorId(userId);
     }
     // Update
+    @Transactional
     public User changeName(Long userId, String newName) {
         User user = getUserById(userId);
         user.setUserName(newName);
         return userRepository.save(user);
     }
+    @Transactional
     public User changeBio(Long userId, String newBio) {
         User user = getUserById(userId);
         user.setBio(newBio);
         return userRepository.save(user);
     }
     // Delete
+    @Transactional
     public void deleteUser(Long userId) {
         if (!userRepository.existsById(userId)) {
             throw new IllegalArgumentException("The User was not found");
