@@ -19,8 +19,8 @@ import java.util.Set;
 
 @Service
 public class HotTakeService {
-    private HotTakeRepository hotTakeRepository;
-    private UserRepository userRepository;
+    private final HotTakeRepository hotTakeRepository;
+    private final UserRepository userRepository;
 
     public HotTakeService(HotTakeRepository hotTakeRepository, UserRepository userRepository) {
         this.hotTakeRepository = hotTakeRepository;

@@ -12,9 +12,9 @@ import java.util.Set;
 
 @Service
 public class CommentService {
-    private HotTakeRepository hotTakeRepository;
-    private UserRepository userRepository;
-    private CommentRepository commentRepository;
+    private final HotTakeRepository hotTakeRepository;
+    private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
     public CommentService(HotTakeRepository hotTakeRepository, UserRepository userRepository, CommentRepository commentRepository) {
         this.hotTakeRepository = hotTakeRepository;
         this.userRepository = userRepository;

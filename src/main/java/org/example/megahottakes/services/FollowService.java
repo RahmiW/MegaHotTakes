@@ -12,7 +12,7 @@ import java.util.Set;
 @Service
 public class FollowService {
     private final UserRepository userRepository;
-    private FollowRepository followRepository;
+    private final FollowRepository followRepository;
     public FollowService(FollowRepository followRepository, UserRepository userRepository) {
         this.followRepository = followRepository;
         this.userRepository = userRepository;
@@ -23,7 +23,6 @@ public class FollowService {
         if (followerId.equals(followedId)) {
             throw new IllegalArgumentException("Cannot follow yourself");
         }
-        // boolean for checking if users already follow each other
         User follower = userRepository.findById(followerId)
             .orElseThrow(() -> new IllegalArgumentException("Follower was not found"));
         User followed = userRepository.findById(followedId)
@@ -37,20 +36,33 @@ public class FollowService {
         followRepository.save(newFollow);
     }
     // unfollow logic
-    public void unfollow(User follower, User followed){
+    @Transactional
+    public void unfollow(Long followerId, Long followedId){
+        User follower = userRepository.findById(followerId)
+                .orElseThrow(() -> new IllegalArgumentException("Follower was not found"));
+        User followed = userRepository.findById(followedId)
+                .orElseThrow(() -> new IllegalArgumentException("Followed user was not found"));
         Follow followRelationship = followRepository.findByFollowerAndFollowed(follower, followed)
                 .orElseThrow(() -> new IllegalArgumentException("This relationship was not found"));
         followRepository.delete(followRelationship);
     }
     // isFollowing checker
-    public boolean isFollowing(User follower, User followed){
+    public boolean isFollowing(Long followerId, Long followedId){
+        User follower = userRepository.findById(followerId)
+                .orElseThrow(() -> new IllegalArgumentException("Follower was not found"));
+        User followed = userRepository.findById(followedId)
+                .orElseThrow(() -> new IllegalArgumentException("Followed user was not found"));
         return  followRepository.existsByFollowerAndFollowed(follower, followed);
     }
     // Methods to get list of followers and following
-    public int getFollowCount(User user){
+    public int getFollowCount(Long id){
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User was not found"));
         return  followRepository.countByFollowed(user);
     }
-    public int getFollowingCount(User user){
+    public int getFollowingCount(Long id){
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User was not found"));
         return  followRepository.countByFollower(user);
     }
 }

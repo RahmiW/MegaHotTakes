@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class FollowController {
     private final FollowService followService;
 
-    public FollowController(FollowService followService, UserRepository userRepository) {
+    public FollowController(FollowService followService) {
         this.followService = followService;
     }
     // Create
@@ -22,18 +22,18 @@ public class FollowController {
     }
     @DeleteMapping("/{followerId}/{followedId}")
     public void unfollow(@PathVariable Long followerId, @PathVariable Long followedId){
-        followService.unfollow(follower, followed);
+        followService.unfollow(followerId, followedId);
     }
     @GetMapping("/isFollowing/{followerId}/{followedId}")
     public boolean isFollowing(@PathVariable Long followerId, @PathVariable Long followedId){
-        return followService.isFollowing(follower, followed);
+        return followService.isFollowing(followerId, followedId);
     }
     @GetMapping("/followcount/{id}")
     public int getFollowCount(@PathVariable Long id){
-        return followService.getFollowCount(user);
+        return followService.getFollowCount(id);
     }
     @GetMapping("/followingcount/{id}")
     public int getFollowingCount(@PathVariable Long id){
-        return followService.getFollowingCount(user);
+        return followService.getFollowingCount(id);
     }
 }
