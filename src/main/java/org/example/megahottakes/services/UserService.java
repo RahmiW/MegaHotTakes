@@ -66,6 +66,9 @@ public class UserService {
     }
     // Delete
     public void deleteUser(Long userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new IllegalArgumentException("The User was not found");
+        }
         userRepository.deleteById(userId);
     }
 }
