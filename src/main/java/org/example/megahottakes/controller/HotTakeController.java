@@ -10,7 +10,7 @@ import java.util.Set;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/hotTake")
+@RequestMapping("/hottakes")
 public class HotTakeController {
     private final HotTakeService hotTakeService;
 
