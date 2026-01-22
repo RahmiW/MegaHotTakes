@@ -1,6 +1,7 @@
 package org.example.megahottakes.controller;
 
 
+import org.example.megahottakes.dto.HotTakeDTO;
 import org.example.megahottakes.entities.HotTake;
 import org.example.megahottakes.services.HotTakeService;
 import org.springframework.web.bind.annotation.*;
@@ -20,24 +21,24 @@ public class HotTakeController {
 
     // Create
     @PostMapping("/user/{id}")
-    public HotTake createHotTakePost(@PathVariable Long id, @RequestBody HotTake hotTake) {
+    public HotTakeDTO createHotTakePost(@PathVariable Long id, @RequestBody HotTake hotTake) {
         return hotTakeService.createHotTake(id, hotTake.getContent());
     }
     // Read
     @GetMapping("/{id}")
-    public HotTake getHotTake(@PathVariable Long id){
+    public HotTakeDTO getHotTake(@PathVariable Long id){
         return hotTakeService.getHotTake(id);
     }
     @GetMapping("/{id}/hottakes")
-    public Set<HotTake> getHotTakeById(@PathVariable Long id){
+    public List<HotTakeDTO> getHotTakeById(@PathVariable Long id){
         return hotTakeService.getHotTakesByUser(id);
     }
     @GetMapping("/feed")
-    public List<HotTake> hotTakeFeed() {
+    public List<HotTakeDTO> hotTakeFeed() {
         return hotTakeService.getHotTakeFeed();
     }
     @GetMapping("/search")
-    public List<HotTake> searchHotTakeFeed(@RequestParam String keyword) {
+    public List<HotTakeDTO> searchHotTakeFeed(@RequestParam String keyword) {
         return hotTakeService.searchHotTakes(keyword);
     }
     @GetMapping("/{id}/heatscore")
@@ -46,7 +47,7 @@ public class HotTakeController {
     }
     // Update
     @PutMapping("/{id}")
-    public HotTake updateHotTake(@PathVariable Long id, @RequestBody HotTake hotTake) {
+    public HotTakeDTO updateHotTake(@PathVariable Long id, @RequestBody HotTake hotTake) {
         return hotTakeService.updateHotTake(id, hotTake.getContent());
     }
     @PatchMapping("/{hotTakeId}/like/{userId}")
