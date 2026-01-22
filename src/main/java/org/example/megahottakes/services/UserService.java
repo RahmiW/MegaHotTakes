@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 // Needed Methods:
 // Get hotTakes with userId
@@ -38,25 +39,30 @@ public class UserService {
     }
     // Create Section
     @Transactional
-    public User createUser(String name, String bioContent){
+    public UserDTO createUser(String name, String bioContent){
         User user = new User();
         user.setUserName(name);
         user.setBio(bioContent);
-        return userRepository.save(user);
+        return convertDTO(userRepository.save(user));
     }
     // Read Section
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserDTO> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(this::convertDTO)
+                .toList();
     }
-    public User getUserById(Long userId) {
-        return userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("The User was not found"));
+    public UserDTO getUserById(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("The User was not found"));
+        return convertDTO(user);
     }
     public String getBio(Long userId) {
-        User user = getUserById(userId);
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("The User was not found"));
         return user.getBio();
     }
-    public User getUserByName(String userName) {
-        return userRepository.findByUserName(userName);
+    public UserDTO getUserByName(String userName) {
+        User user = userRepository.findByUserName(userName);
+        return convertDTO(user);
     }
     public List<HotTake> getHotTakesByUserId(Long userId) {
         return hotTakeRepository.findByAuthorId(userId);
@@ -66,16 +72,16 @@ public class UserService {
     }
     // Update
     @Transactional
-    public User changeName(Long userId, String newName) {
-        User user = getUserById(userId);
+    public UserDTO changeName(Long userId, String newName) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("The User was not found"));
         user.setUserName(newName);
-        return userRepository.save(user);
+        return convertDTO(userRepository.save(user));
     }
     @Transactional
-    public User changeBio(Long userId, String newBio) {
-        User user = getUserById(userId);
+    public UserDTO changeBio(Long userId, String newBio) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("The User was not found"));
         user.setBio(newBio);
-        return userRepository.save(user);
+        return convertDTO(userRepository.save(user));
     }
     // Delete
     @Transactional

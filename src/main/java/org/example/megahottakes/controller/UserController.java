@@ -1,5 +1,6 @@
 package org.example.megahottakes.controller;
 
+import org.example.megahottakes.dto.UserDTO;
 import org.example.megahottakes.entities.Comment;
 import org.example.megahottakes.entities.HotTake;
 import org.example.megahottakes.entities.User;
@@ -21,16 +22,16 @@ public class UserController {
     }
     // Create
     @PostMapping
-    public User createUser(@RequestBody User user) {
+    public UserDTO createUser(@RequestBody User user) {
         return userService.createUser(user.getUserName(), user.getBio());
     }
     // Read
     @GetMapping
-    public List<User> findAll() {
+    public List<UserDTO> findAll() {
         return userService.getAllUsers();
     }
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
+    public UserDTO getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
     @GetMapping("/{id}/bio")
@@ -38,7 +39,7 @@ public class UserController {
         return userService.getBio(id);
     }
     @GetMapping("/by-name/{name}")
-    public User getByUserName(@PathVariable String name){return userService.getUserByName(name);
+    public UserDTO getByUserName(@PathVariable String name){return userService.getUserByName(name);
     }
     @GetMapping("/{id}/hottakes")
     public List<HotTake> getHotTakesByUser(@PathVariable Long id){
@@ -50,11 +51,11 @@ public class UserController {
     }
     // Update Section will include: changeName, changeBio
     @PutMapping("/{id}/username")
-    public User updateUserName(@PathVariable Long id, @RequestBody User user){
+    public UserDTO updateUserName(@PathVariable Long id, @RequestBody User user){
         return userService.changeName(id, user.getUserName());
     }
     @PutMapping("/{id}/bio")
-    public User updateUserBio(@PathVariable Long id, @RequestBody User user){
+    public UserDTO updateUserBio(@PathVariable Long id, @RequestBody User user){
         return userService.changeBio(id, user.getBio());
     }
     // Delete Section
