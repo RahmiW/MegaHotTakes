@@ -43,7 +43,6 @@ public class HotTakeService {
     }
 
     // Read
-    @Transactional
     public HotTake getHotTake(Long hotTakeId) {
         return hotTakeRepository.findById(hotTakeId)
                 .orElseThrow(() -> new IllegalArgumentException("The HotTake was not found"));
