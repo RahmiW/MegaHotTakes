@@ -38,7 +38,7 @@ public class HotTakeService {
     }
     // Create
     @Transactional
-    public HotTake createHotTake(Long id, String contentOfHotTake) {
+    public HotTakeDTO createHotTake(Long id, String contentOfHotTake) {
         User authorOfHotTake = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("The User was not Found")); // grab id of User
         if (contentOfHotTake == null || contentOfHotTake.trim().isEmpty()) {
@@ -47,35 +47,44 @@ public class HotTakeService {
         HotTake hotTake = new HotTake();
         hotTake.setContent(contentOfHotTake);
         hotTake.setAuthor(authorOfHotTake);
-        return hotTakeRepository.save(hotTake);
+        return convertDTO(hotTakeRepository.save(hotTake));
     }
 
     // Read
-    public HotTake getHotTake(Long hotTakeId) {
-        return hotTakeRepository.findById(hotTakeId)
+    public HotTakeDTO getHotTake(Long hotTakeId) {
+        HotTake hotTake = hotTakeRepository.findById(hotTakeId)
                 .orElseThrow(() -> new IllegalArgumentException("The HotTake was not found"));
+        return convertDTO(hotTake);
     }
 
-    public List<HotTake> getHotTakeFeed() {
+    public List<HotTakeDTO> getHotTakeFeed() {
         LocalDateTime since = LocalDateTime.now().minusHours(48);
-        return hotTakeRepository.findByCreationDateAfterOrderByLikedByUsersDesc(since);
+        List<HotTake> hotTakes = hotTakeRepository.findByCreationDateAfterOrderByLikedByUsersDesc(since);
+        return hotTakes.stream()
+                .map(this::convertDTO)
+                .toList();
     }
 
-    public Set<HotTake> getHotTakesByUser(Long userId) {
+    public List<HotTakeDTO> getHotTakesByUser(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("The User was not Found"));
-        return user.getHotTakes();
+        return user.getHotTakes().stream()
+                .map(this::convertDTO)
+                .toList();
     }
 
-    public List<HotTake> searchHotTakes(String keyword) {
-        return hotTakeRepository.findByContentContainingIgnoreCase(keyword);
+    public List<HotTakeDTO> searchHotTakes(String keyword) {
+        List<HotTake> hotTake = hotTakeRepository.findByContentContainingIgnoreCase(keyword);
+        return hotTake.stream()
+                .map(this::convertDTO)
+                .toList();
     }
 
     // Update
     @Transactional
-    public HotTake updateHotTake(Long hotTakeId, String newContent) {
+    public HotTakeDTO updateHotTake(Long hotTakeId, String newContent) {
         HotTake hotTake = hotTakeRepository.findById(hotTakeId).orElseThrow(() -> new IllegalArgumentException("The HotTake was not found"));
         hotTake.setContent(newContent);
-        return hotTakeRepository.save(hotTake);
+        return convertDTO(hotTakeRepository.save(hotTake));
     }
 
     // Delete
@@ -85,7 +94,7 @@ public class HotTakeService {
     }
     // Like HotTake logic
     public Integer getHeatScore(Long hotTakeId) {
-        HotTake hotTake = getHotTake(hotTakeId);
+        HotTake hotTake = hotTakeRepository.findById(hotTakeId).orElseThrow(() -> new IllegalArgumentException("The HotTake was not found"));
         return hotTake.getHeatScore();
     }
     @Transactional
