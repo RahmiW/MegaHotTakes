@@ -1,6 +1,7 @@
 package org.example.megahottakes.services;
 
 import jakarta.transaction.Transactional;
+import org.example.megahottakes.dto.HotTakeDTO;
 import org.example.megahottakes.entities.HotTake;
 import org.example.megahottakes.entities.User;
 import org.example.megahottakes.entities.Comment;
@@ -27,7 +28,14 @@ public class HotTakeService {
         this.hotTakeRepository = hotTakeRepository;
         this.userRepository = userRepository;
     }
-
+    public HotTakeDTO convertDTO(HotTake hotTake){
+        HotTakeDTO hotTakeDTO = new HotTakeDTO();
+        hotTakeDTO.setId(hotTake.getId());
+        hotTakeDTO.setAuthorName(hotTake.getAuthor().getUserName());
+        hotTakeDTO.setContent(hotTake.getContent());
+        hotTakeDTO.setHeatScore(hotTake.getHeatScore());
+        return hotTakeDTO;
+    }
     // Create
     @Transactional
     public HotTake createHotTake(Long id, String contentOfHotTake) {

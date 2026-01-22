@@ -1,6 +1,7 @@
 package org.example.megahottakes.services;
 
 import jakarta.transaction.Transactional;
+import org.example.megahottakes.dto.HotTakeDTO;
 import org.example.megahottakes.dto.UserDTO;
 import org.example.megahottakes.entities.Comment;
 import org.example.megahottakes.entities.HotTake;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 // Needed Methods:
 // Get hotTakes with userId
@@ -66,8 +69,11 @@ public class UserService {
         User user = userRepository.findByUserName(userName);
         return convertDTO(user);
     }
-    public List<HotTake> getHotTakesByUserId(Long userId) {
-        return hotTakeRepository.findByAuthorId(userId);
+    public List<HotTakeDTO> getHotTakesByUserId(Long userId) {
+        return hotTakeRepository.findByAuthorId(userId)
+                .stream()
+                .map(hotTakeService::convertDTO)
+                .toList();
     }
     public List<Comment> getCommentsByUserId(Long userId) {
         return commentRepository.findByAuthorId(userId);

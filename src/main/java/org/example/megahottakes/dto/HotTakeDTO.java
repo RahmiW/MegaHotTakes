@@ -8,6 +8,6 @@ import lombok.Setter;
 public class HotTakeDTO {
     private Long id;
     private String content;
-    private String heatScore;
+    private Integer heatScore;
     private String authorName;
 }
