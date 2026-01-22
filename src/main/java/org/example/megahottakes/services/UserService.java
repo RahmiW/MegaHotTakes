@@ -24,10 +24,12 @@ public class UserService {
     private final UserRepository userRepository;
     private final HotTakeRepository hotTakeRepository;
     private final CommentRepository commentRepository;
-    public UserService(UserRepository userRepository,  HotTakeRepository hotTakeRepository,  CommentRepository commentRepository) {
+    private final HotTakeService hotTakeService;
+    public UserService(UserRepository userRepository,  HotTakeRepository hotTakeRepository,  CommentRepository commentRepository, HotTakeService hotTakeService) {
         this.userRepository = userRepository;
         this.hotTakeRepository = hotTakeRepository;
         this.commentRepository = commentRepository;
+        this.hotTakeService = hotTakeService;
     }
     // Convert to DTO
     private UserDTO convertDTO(User user){
