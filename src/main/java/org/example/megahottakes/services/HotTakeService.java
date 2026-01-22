@@ -1,5 +1,6 @@
 package org.example.megahottakes.services;
 
+import jakarta.transaction.Transactional;
 import org.example.megahottakes.entities.HotTake;
 import org.example.megahottakes.entities.User;
 import org.example.megahottakes.entities.Comment;
@@ -28,6 +29,7 @@ public class HotTakeService {
     }
 
     // Create
+    @Transactional
     public HotTake createHotTake(Long id, String contentOfHotTake) {
         User authorOfHotTake = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("The User was not Found")); // grab id of User
@@ -41,6 +43,7 @@ public class HotTakeService {
     }
 
     // Read
+    @Transactional
     public HotTake getHotTake(Long hotTakeId) {
         return hotTakeRepository.findById(hotTakeId)
                 .orElseThrow(() -> new IllegalArgumentException("The HotTake was not found"));
@@ -61,6 +64,7 @@ public class HotTakeService {
     }
 
     // Update
+    @Transactional
     public HotTake updateHotTake(Long hotTakeId, String newContent) {
         HotTake hotTake = hotTakeRepository.findById(hotTakeId).orElseThrow(() -> new IllegalArgumentException("The HotTake was not found"));
         hotTake.setContent(newContent);
@@ -68,6 +72,7 @@ public class HotTakeService {
     }
 
     // Delete
+    @Transactional
     public void deleteHotTake(Long hotTakeId) {
         hotTakeRepository.deleteById(hotTakeId);
     }
@@ -76,6 +81,7 @@ public class HotTakeService {
         HotTake hotTake = getHotTake(hotTakeId);
         return hotTake.getHeatScore();
     }
+    @Transactional
     public Integer addToHeatScore(Long userId, Long hotTakeId){
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("The User was not Found"));
         HotTake hotTake = hotTakeRepository.findById(hotTakeId).orElseThrow(() -> new IllegalArgumentException("The HotTake was not found"));
@@ -87,6 +93,7 @@ public class HotTakeService {
         }
         return hotTake.getHeatScore();
     }
+    @Transactional
     public Integer decreaseHeatScore(Long userId, Long hotTakeId){
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("The User was not Found"));
         HotTake hotTake = hotTakeRepository.findById(hotTakeId).orElseThrow(() -> new IllegalArgumentException("The HotTake was not found"));
