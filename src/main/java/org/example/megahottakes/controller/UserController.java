@@ -1,5 +1,6 @@
 package org.example.megahottakes.controller;
 
+import org.example.megahottakes.dto.HotTakeDTO;
 import org.example.megahottakes.dto.UserDTO;
 import org.example.megahottakes.entities.Comment;
 import org.example.megahottakes.entities.HotTake;
@@ -42,7 +43,7 @@ public class UserController {
     public UserDTO getByUserName(@PathVariable String name){return userService.getUserByName(name);
     }
     @GetMapping("/{id}/hottakes")
-    public List<HotTake> getHotTakesByUser(@PathVariable Long id){
+    public List<HotTakeDTO> getHotTakesByUser(@PathVariable Long id){
         return userService.getHotTakesByUserId(id);
     }
     @GetMapping("/{id}/comments")
