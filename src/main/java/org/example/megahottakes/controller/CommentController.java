@@ -1,10 +1,12 @@
 package org.example.megahottakes.controller;
 
 
+import org.example.megahottakes.dto.CommentDTO;
 import org.example.megahottakes.entities.Comment;
 import org.example.megahottakes.services.CommentService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @CrossOrigin(origins = "*")
@@ -19,13 +21,13 @@ public class CommentController {
 
     // Create
     @PostMapping("/hottake/{hotTakeId}/user/{userId}")
-    public Comment createComment(@PathVariable Long hotTakeId, @PathVariable Long userId, @RequestBody Comment comment) {
+    public CommentDTO createComment(@PathVariable Long hotTakeId, @PathVariable Long userId, @RequestBody Comment comment) {
         return commentService.addComment(hotTakeId, userId, comment.getContent());
     }
 
     // Read
     @GetMapping("/{id}/all")
-    public Set<Comment> getAllComments(@PathVariable Long id) {
+    public List<CommentDTO> getAllComments(@PathVariable Long id) {
         return commentService.getCommentsByHotTake(id);
     }
     // Delete

@@ -1,6 +1,7 @@
 package org.example.megahottakes.services;
 
 import jakarta.transaction.Transactional;
+import org.example.megahottakes.dto.CommentDTO;
 import org.example.megahottakes.entities.Comment;
 import org.example.megahottakes.entities.HotTake;
 import org.example.megahottakes.entities.User;
@@ -10,7 +11,7 @@ import org.example.megahottakes.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class CommentService {
@@ -22,8 +23,18 @@ public class CommentService {
         this.userRepository = userRepository;
         this.commentRepository = commentRepository;
     }
+    public CommentDTO convertToDTO(Comment comment) {
+        CommentDTO commentDTO = new CommentDTO();
+        commentDTO.setId(comment.getId());
+        commentDTO.setContent(comment.getContent());
+        commentDTO.setCreatedDate(comment.getCreatedDate());
+        commentDTO.setAuthorName(comment.getAuthor().getUserName());
+        commentDTO.setAuthorId(comment.getAuthor().getId());
+        commentDTO.setHotTakeId(comment.getHotTake().getId());
+        return commentDTO;
+    }
     @Transactional
-    public Comment addComment(Long hotTakeId, Long authorId, String contentOfComment) {
+    public CommentDTO addComment(Long hotTakeId, Long authorId, String contentOfComment) {
         Comment newComment = new Comment();
         HotTake hotTakeObject = hotTakeRepository.findById(hotTakeId)
                 .orElseThrow(() -> new IllegalArgumentException("The HotTake Post was not Found"));
@@ -33,11 +44,13 @@ public class CommentService {
         newComment.setHotTake(hotTakeObject);
         newComment.setContent(contentOfComment);
         newComment.setCreatedDate(LocalDateTime.now());
-        return commentRepository.save(newComment);
+        return convertToDTO(commentRepository.save(newComment));
     }
-    public Set<Comment> getCommentsByHotTake(Long hotTakeId){
+    public List<CommentDTO> getCommentsByHotTake(Long hotTakeId){
         HotTake hotTake = hotTakeRepository.findById(hotTakeId).orElseThrow(() -> new IllegalArgumentException("The HotTake was not found"));
-        return hotTake.getComments();
+        return hotTake.getComments().stream()
+                .map(this::convertToDTO)
+                .toList();
     }
     @Transactional
     public void deleteComment(Long commentId){
