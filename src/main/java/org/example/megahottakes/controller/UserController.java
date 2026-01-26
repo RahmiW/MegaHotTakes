@@ -1,5 +1,6 @@
 package org.example.megahottakes.controller;
 
+import org.example.megahottakes.dto.CommentDTO;
 import org.example.megahottakes.dto.HotTakeDTO;
 import org.example.megahottakes.dto.UserDTO;
 import org.example.megahottakes.entities.Comment;
@@ -47,7 +48,7 @@ public class UserController {
         return userService.getHotTakesByUserId(id);
     }
     @GetMapping("/{id}/comments")
-    public List<Comment>  getCommentsByUser(@PathVariable Long id){
+    public List<CommentDTO>  getCommentsByUser(@PathVariable Long id){
         return userService.getCommentsByUserId(id);
     }
     // Update Section will include: changeName, changeBio
