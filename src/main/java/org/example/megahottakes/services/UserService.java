@@ -1,6 +1,7 @@
 package org.example.megahottakes.services;
 
 import jakarta.transaction.Transactional;
+import org.example.megahottakes.dto.CommentDTO;
 import org.example.megahottakes.dto.HotTakeDTO;
 import org.example.megahottakes.dto.UserDTO;
 import org.example.megahottakes.entities.Comment;
@@ -25,11 +26,13 @@ public class UserService {
     private final HotTakeRepository hotTakeRepository;
     private final CommentRepository commentRepository;
     private final HotTakeService hotTakeService;
-    public UserService(UserRepository userRepository,  HotTakeRepository hotTakeRepository,  CommentRepository commentRepository, HotTakeService hotTakeService) {
+    private final CommentService commentService;
+    public UserService(UserRepository userRepository,  HotTakeRepository hotTakeRepository,  CommentRepository commentRepository, HotTakeService hotTakeService,  CommentService commentService) {
         this.userRepository = userRepository;
         this.hotTakeRepository = hotTakeRepository;
         this.commentRepository = commentRepository;
         this.hotTakeService = hotTakeService;
+        this.commentService = commentService;
     }
     // Convert to DTO
     private UserDTO convertDTO(User user){
@@ -72,8 +75,11 @@ public class UserService {
                 .map(hotTakeService::convertDTO)
                 .toList();
     }
-    public List<Comment> getCommentsByUserId(Long userId) {
-        return commentRepository.findByAuthorId(userId);
+    public List<CommentDTO> getCommentsByUserId(Long userId) {
+        return commentRepository.findByAuthorId(userId)
+                .stream()
+                .map(commentService::convertToDTO)
+                .toList();
     }
     // Update
     @Transactional
