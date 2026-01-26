@@ -34,6 +34,8 @@ public class HotTakeService {
         hotTakeDTO.setAuthorName(hotTake.getAuthor().getUserName());
         hotTakeDTO.setContent(hotTake.getContent());
         hotTakeDTO.setHeatScore(hotTake.getHeatScore());
+        hotTakeDTO.setAuthorId(hotTake.getAuthor().getId());
+        hotTakeDTO.setCreationDate(hotTake.getCreationDate());
         return hotTakeDTO;
     }
     // Create
