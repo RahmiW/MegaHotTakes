@@ -13,7 +13,7 @@ import lombok.Setter;
 @Entity
 public class Follow {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "follower_id")
