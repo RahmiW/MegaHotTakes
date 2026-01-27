@@ -39,4 +39,9 @@ public class User {
 
     @OneToMany(mappedBy = "followed", cascade = CascadeType.ALL,  orphanRemoval = true)
     private Set<Follow> followerRelations = new HashSet<>();
+
+    public void addHotTake(HotTake take) {
+        hotTakes.add(take);
+        take.setAuthor(this);
+    }
 }
