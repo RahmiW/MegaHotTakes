@@ -44,4 +44,8 @@ public class User {
         hotTakes.add(take);
         take.setAuthor(this);
     }
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.setAuthor(this);
+    }
 }
