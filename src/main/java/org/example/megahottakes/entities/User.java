@@ -48,4 +48,8 @@ public class User {
         comments.add(comment);
         comment.setAuthor(this);
     }
+    public void likeHotTake(HotTake take) {
+        likedHotTakes.add(take);
+        take.getLikedByUsers().add(this);
+    }
 }
