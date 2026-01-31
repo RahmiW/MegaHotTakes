@@ -52,4 +52,12 @@ public class User {
         likedHotTakes.add(take);
         take.getLikedByUsers().add(this);
     }
+    public void follow(User targetUser) {
+        Follow follow = new Follow();
+        follow.setFollower(this);
+        follow.setFollowed(targetUser);
+
+        followingRelations.add(follow);
+        targetUser.getFollowerRelations().add(follow);
+    }
 }
