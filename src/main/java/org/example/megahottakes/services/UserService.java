@@ -66,7 +66,8 @@ public class UserService {
         return user.getBio();
     }
     public UserDTO getUserByName(String userName) {
-        User user = userRepository.findByUserName(userName);
+        User user = userRepository.findByUserName(userName)
+                .orElseThrow(() -> new IllegalArgumentException("The User was not found"));
         return convertDTO(user);
     }
     public List<HotTakeDTO> getHotTakesByUserId(Long userId) {
