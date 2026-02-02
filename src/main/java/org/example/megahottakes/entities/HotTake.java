@@ -22,9 +22,6 @@ public class HotTake {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @Column(nullable = false)
-    private Integer heatScore = 0;
-
     // Time the HotTake post was created
     // Remember to also include in comment entity
     private LocalDateTime creationDate =  LocalDateTime.now();

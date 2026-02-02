@@ -33,7 +33,7 @@ public class HotTakeService {
         hotTakeDTO.setId(hotTake.getId());
         hotTakeDTO.setAuthorName(hotTake.getAuthor().getUserName());
         hotTakeDTO.setContent(hotTake.getContent());
-        hotTakeDTO.setHeatScore(hotTake.getHeatScore());
+        hotTakeDTO.setHeatScore(hotTake.getLikedByUsers().size());
         hotTakeDTO.setAuthorId(hotTake.getAuthor().getId());
         hotTakeDTO.setCreationDate(hotTake.getCreationDate());
         return hotTakeDTO;
@@ -97,7 +97,7 @@ public class HotTakeService {
     // Like HotTake logic
     public Integer getHeatScore(Long hotTakeId) {
         HotTake hotTake = hotTakeRepository.findById(hotTakeId).orElseThrow(() -> new IllegalArgumentException("The HotTake was not found"));
-        return hotTake.getHeatScore();
+        return hotTake.getLikedByUsers().size();
     }
     @Transactional
     public Integer addToHeatScore(Long userId, Long hotTakeId){
@@ -105,11 +105,9 @@ public class HotTakeService {
         HotTake hotTake = hotTakeRepository.findById(hotTakeId).orElseThrow(() -> new IllegalArgumentException("The HotTake was not found"));
         if (!user.getLikedHotTakes().contains(hotTake)) {
             user.getLikedHotTakes().add(hotTake);
-            hotTake.setHeatScore(hotTake.getHeatScore() + 1);
             userRepository.save(user);
-            hotTakeRepository.save(hotTake);
         }
-        return hotTake.getHeatScore();
+        return hotTake.getLikedByUsers().size();
     }
     @Transactional
     public Integer decreaseHeatScore(Long userId, Long hotTakeId){
@@ -117,10 +115,8 @@ public class HotTakeService {
         HotTake hotTake = hotTakeRepository.findById(hotTakeId).orElseThrow(() -> new IllegalArgumentException("The HotTake was not found"));
         if (user.getLikedHotTakes().contains(hotTake)) {
             user.getLikedHotTakes().remove(hotTake);
-            hotTake.setHeatScore(hotTake.getHeatScore() - 1);
             userRepository.save(user);
-            hotTakeRepository.save(hotTake);
         }
-        return hotTake.getHeatScore();
+        return hotTake.getLikedByUsers().size();
     }
 }
