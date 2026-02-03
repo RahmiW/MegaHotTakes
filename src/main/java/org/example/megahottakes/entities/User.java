@@ -19,6 +19,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String userName;
+    @Column(nullable = false)
+    private String password;
     private String bio;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL,  orphanRemoval = true)
