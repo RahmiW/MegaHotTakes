@@ -3,13 +3,8 @@ package org.example.megahottakes.controller;
 import org.example.megahottakes.dto.CommentDTO;
 import org.example.megahottakes.dto.HotTakeDTO;
 import org.example.megahottakes.dto.UserDTO;
-import org.example.megahottakes.entities.Comment;
-import org.example.megahottakes.entities.HotTake;
 import org.example.megahottakes.entities.User;
-import org.example.megahottakes.repositories.FollowRepository;
-import org.example.megahottakes.repositories.UserRepository;
 import org.example.megahottakes.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

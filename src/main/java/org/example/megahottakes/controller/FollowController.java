@@ -1,8 +1,5 @@
 package org.example.megahottakes.controller;
 
-import org.example.megahottakes.entities.Follow;
-import org.example.megahottakes.entities.User;
-import org.example.megahottakes.repositories.UserRepository;
 import org.example.megahottakes.services.FollowService;
 import org.springframework.web.bind.annotation.*;
 

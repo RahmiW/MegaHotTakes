@@ -4,8 +4,6 @@ import jakarta.transaction.Transactional;
 import org.example.megahottakes.dto.HotTakeDTO;
 import org.example.megahottakes.entities.HotTake;
 import org.example.megahottakes.entities.User;
-import org.example.megahottakes.entities.Comment;
-import org.example.megahottakes.repositories.CommentRepository;
 import org.example.megahottakes.repositories.HotTakeRepository;
 import org.example.megahottakes.repositories.UserRepository;
 import org.springframework.stereotype.Service;

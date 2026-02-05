@@ -7,7 +7,6 @@ import org.example.megahottakes.repositories.FollowRepository;
 import org.example.megahottakes.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
 
 @Service
 public class FollowService {
