@@ -42,6 +42,7 @@ public class UserService {
     // Create Section
     @Transactional
     public UserDTO createUser(String name, String bioContent){
+        if (name == null || name.isBlank()) throw new IllegalArgumentException("Username cannot be empty");
         User user = new User();
         user.setUserName(name);
         user.setBio(bioContent);
