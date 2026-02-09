@@ -19,3 +19,6 @@ VALUES ('You can''t even see the truth in that statement!', 2, 1, CURRENT_TIMEST
 
 INSERT INTO comment (content, user_id, hottake_id, created_date)
 VALUES ('Shaq, you''re just big. I''d cross you up!', 3, 3, CURRENT_TIMESTAMP);
+
+INSERT INTO comment (content, user_id, hottake_id, created_date)
+VALUES ('He would not lets be realistic', 1, 3, CURRENT_TIMESTAMP);
