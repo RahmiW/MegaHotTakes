@@ -43,7 +43,6 @@ public class CommentService {
         newComment.setAuthor(authorObject);
         newComment.setHotTake(hotTakeObject);
         newComment.setContent(contentOfComment);
-        newComment.setCreatedDate(LocalDateTime.now());
         return convertToDTO(commentRepository.save(newComment));
     }
     public List<CommentDTO> getCommentsByHotTake(Long hotTakeId){

@@ -20,7 +20,7 @@ public class UserController {
     // Create
     @PostMapping
     public UserDTO createUser(@RequestBody User user) {
-        return userService.createUser(user.getUserName(), user.getBio());
+        return userService.createUser(user.getUserName(), user.getBio(),user.getPassword());
     }
     // Read
     @GetMapping
