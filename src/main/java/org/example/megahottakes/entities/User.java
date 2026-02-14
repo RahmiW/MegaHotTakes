@@ -1,5 +1,6 @@
 package org.example.megahottakes.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,8 +18,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true, nullable = false)
     private String userName;
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
     private String bio;
 
