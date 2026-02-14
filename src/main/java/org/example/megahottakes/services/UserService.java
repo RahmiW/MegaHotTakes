@@ -41,10 +41,11 @@ public class UserService {
     }
     // Create Section
     @Transactional
-    public UserDTO createUser(String name, String bioContent){
+    public UserDTO createUser(String name, String bioContent, String password){
         if (name == null || name.isBlank()) throw new IllegalArgumentException("Username cannot be empty");
         User user = new User();
         user.setUserName(name);
+        user.setPassword(password);
         user.setBio(bioContent);
         return convertDTO(userRepository.save(user));
     }
